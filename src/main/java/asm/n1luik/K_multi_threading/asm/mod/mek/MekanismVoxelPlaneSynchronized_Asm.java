@@ -1,0 +1,115 @@
+package asm.n1luik.K_multi_threading.asm.mod.mek;
+
+import cpw.mods.modlauncher.api.ITransformer;
+import cpw.mods.modlauncher.api.ITransformerVotingContext;
+import cpw.mods.modlauncher.api.TransformerVoteResult;
+import org.jetbrains.annotations.NotNull;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.*;
+
+import java.util.Set;
+
+public class MekanismVoxelPlaneSynchronized_Asm implements ITransformer<ClassNode> {
+    @NotNull
+    @Override
+    public ClassNode transform(ClassNode input, ITransformerVotingContext context) {
+        boolean debug_add1 = false;
+
+        if (input.name.equals("mekanism/common/lib/math/voxel/VoxelPlane")){
+            for (MethodNode method : input.methods) {
+                if ((method.name.equals("merge") && method.desc.equals("(Lmekanism/common/lib/math/voxel/VoxelPlane;)V"))){
+                    debug_add1 = true;
+//                    InsnList instructions = method.instructions;
+//                    InsnList instructions2 = method.instructions = new InsnList();
+//
+//                    instructions2.add(new VarInsnNode(Opcodes.ALOAD,1));
+//                    instructions2.add(new InsnNode(Opcodes.MONITORENTER));//复制
+//
+//
+//                    /*LabelNode labelNode = new LabelNode();
+//                    LabelNode labelNode2 = new LabelNode();
+//                    LabelNode labelNode3 = new LabelNode();
+//
+//                    labelNode.getLabel().info = labelNode;
+//                    labelNode2.getLabel().info = labelNode2;
+//                    labelNode3.getLabel().info = labelNode3;
+//
+//                    method.visitLocalVariable("缓存_6","Ljava/lang/Throwable;","",labelNode2.getLabel(),labelNode3.getLabel(),method.maxLocals-1);
+//
+//                    instructions2.add(labelNode);
+//                    instructions2.add(new VarInsnNode(Opcodes.ALOAD, 0));
+//                    instructions2.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/Object","notify","()V"));
+//                    instructions2.add(new JumpInsnNode(Opcodes.GOTO, labelNode3));
+//                    instructions2.add(labelNode2);
+//                    instructions2.add(new FrameNode(Opcodes.F_CHOP, 0, null, 1, new Object[] { "java/lang/Throwable" }));
+//                    instructions2.add(new VarInsnNode(Opcodes.ASTORE, method.maxLocals-1));
+//                    instructions2.add(new TypeInsnNode(Opcodes.NEW,"java/lang/RuntimeException"));
+//                    instructions2.add(new InsnNode(Opcodes.DUP));
+//                    instructions2.add(new VarInsnNode(Opcodes.ALOAD, method.maxLocals-1));
+//                    instructions2.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "java/lang/RuntimeException", "<init>", "(Ljava/lang/Throwable;)V"));
+//                    instructions2.add(new InsnNode(Opcodes.ATHROW));
+//                    instructions2.add(labelNode3);
+//
+//                    method.visitTryCatchBlock(labelNode.getLabel(),labelNode2.getLabel(),labelNode2.getLabel(),"java/lang/Throwable");*/
+//
+//
+//                    instructions2.add(new VarInsnNode(Opcodes.ALOAD,1));
+//                    instructions2.add(new InsnNode(Opcodes.MONITORENTER));//复制
+//
+//                    for (AbstractInsnNode instruction : instructions) {
+//                        if (instruction.getOpcode() == Opcodes.RETURN || instruction.getOpcode() == Opcodes.ARETURN
+//                                || instruction.getOpcode() == Opcodes.DRETURN || instruction.getOpcode() == Opcodes.FRETURN
+//                                || instruction.getOpcode() == Opcodes.IRETURN || instruction.getOpcode() == Opcodes.LRETURN){
+//                            instructions2.add(new VarInsnNode(Opcodes.ALOAD,1));
+//                            instructions2.add(new InsnNode(Opcodes.MONITOREXIT));//复制
+//                        }
+//                        instructions2.add(instruction);
+//                    }
+
+
+                    InsnList start = new InsnList();
+                    InsnList end = new InsnList();
+                    start = new InsnList();
+                    start.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                    start.add(new InsnNode(Opcodes.MONITORENTER));
+                    end = new InsnList();
+                    end.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                    end.add(new InsnNode(Opcodes.MONITOREXIT));
+                    InsnList il = method.instructions;
+                    AbstractInsnNode ain = il.getFirst();
+                    while (ain != null) {
+                        if (ain.getOpcode() == Opcodes.ATHROW || ain.getOpcode() == Opcodes.RETURN || ain.getOpcode() == Opcodes.ARETURN
+                                || ain.getOpcode() == Opcodes.DRETURN || ain.getOpcode() == Opcodes.FRETURN
+                                || ain.getOpcode() == Opcodes.IRETURN || ain.getOpcode() == Opcodes.LRETURN) {
+                            il.insertBefore(ain, end);
+                            end = new InsnList();
+                            end.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "asm/n1luik/K_multi_threading/asm/mod/Empty","empty","()V"));
+                            end.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                            end.add(new InsnNode(Opcodes.MONITOREXIT));
+                        }
+                        ain = ain.getNext();
+                    }
+                    il.insertBefore(il.getFirst(), start);
+                }
+            }
+        }
+
+        if (!debug_add1){
+            throw new RuntimeException("Not mapping error: mekanism/common/lib/math/voxel/VoxelPlane");
+        }
+
+
+        return input;
+    }
+
+    @Override
+    public @NotNull TransformerVoteResult castVote(ITransformerVotingContext context) {
+        return TransformerVoteResult.YES;
+    }
+
+    @Override
+    public @NotNull Set<Target> targets() {
+        return Set.of(
+                Target.targetClass("mekanism/common/lib/math/voxel/VoxelPlane"));
+    }
+}

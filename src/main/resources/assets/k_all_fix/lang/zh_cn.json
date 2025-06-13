@@ -1,0 +1,5 @@
+{
+  "k_all_fix.wait_server_send_pack": "等待服务器发送完成登陆数据包 当前状态: [%s]",
+  "k_all_fix.wait_server_send_pack_wait": "等待",
+  "k_all_fix.wait_server_send_pack_ok": "完成"
+}

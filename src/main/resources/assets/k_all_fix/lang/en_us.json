@@ -1,0 +1,5 @@
+{
+  "k_all_fix.wait_server_send_pack": "Waiting for the server to send the login data packet. Current status: [%s]",
+  "k_all_fix.wait_server_send_pack_wait": "wait",
+  "k_all_fix.wait_server_send_pack_ok": "ok"
+}

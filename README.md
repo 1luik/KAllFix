@@ -1,0 +1,1 @@
+This repository just used to collect issues. Not newest, lack of commit record and version tags. For newest code, please move to [gitee](https://gitee.com/n1luik/k_multi_threadingK_multi_threading)
