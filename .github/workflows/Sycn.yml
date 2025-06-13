@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  Sychronize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repotitory
+        run: git clone https://gitee.com/n1luik/k_multi_threadingK_multi_threading.git
+
+      - name: Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd k_multi_threadingK_multi_threading
+          git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git push github master:main -f
+        
+      - uses: actions/upload-artifact@v4
+        with:
+          overwrite: true
+          include-hidden-files: true
+          path: |
+            **/logs/
+            **/crash-reports/
+            build/libs
+          retention-days: 1
+        if: always()
