@@ -1,0 +1,77 @@
+name: "Modpack Compatibility Request"
+description: "Request to make Kallfix compatible with a specific modpack."
+title: "Modpack Request Compatibility for <Modpack Name>"
+labels: ["enhancement", "compatibility"]
+assignees:
+  - n1luik
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for your interest in Kallfix!**
+        
+        Before submitting, please search the existing issues to ensure a similar request has not already been made. Duplicate issues will be closed.
+
+  - type: input
+    id: modpack-name
+    attributes:
+      label: "Modpack Name"
+      description: "What is the name of the modpack you want Kallfix to be compatible with?"
+      placeholder: "e.g., All the Mods 9"
+    validations:
+      required: true
+
+  - type: input
+    id: modpack-link
+    attributes:
+      label: "Modpack Link"
+      description: "Please provide a link to the modpack's download or homepage (e.g., CurseForge, Modrinth)."
+      placeholder: "https://www.curseforge.com/minecraft/modpacks/..."
+    validations:
+      required: true
+
+  - type: input
+    id: modpack-version
+    attributes:
+      label: "Modpack Version"
+      description: "What is the specific version of the modpack you are using?"
+      placeholder: "e.g., v1.2.3"
+    validations:
+      required: true
+
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: "Minecraft Version"
+      description: "Which version of Minecraft is this modpack for?"
+      placeholder: "e.g., 1.20.1"
+    validations:
+      required: true
+
+  - type: input
+    id: mod-loader
+    attributes:
+      label: "Mod Loader"
+      description: "Which mod loader does this modpack use?"
+      placeholder: "e.g., Forge"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: "Reason for Compatibility Request"
+      description: "Please describe in detail why Kallfix should be made compatible with this modpack. Are there known conflicts, performance issues, or do you simply want it included for a better experience? Please provide as much detail as possible."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      description: "Please check all the following boxes before submitting."
+      options:
+        - label: "I have searched the existing issues and confirmed that this is not a duplicate request."
+          required: true
+        - label: "I confirm that the information provided (especially links and version numbers) is accurate."
+          required: true
