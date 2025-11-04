@@ -21,6 +21,16 @@ import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 @Slf4j
 public class Plugin implements IMixinConfigPlugin {
+    static {
+        System.setProperty("KAF-ChunkBreedingControlSizeEnable", getInt("KAF-ChunkBreedingControlSize") != null ? "true" : "false");
+    }
+    public static Integer getInt(String key) {
+        try {
+            return Integer.getInteger(key);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
     private volatile Integer biolithFixVersion = null;
     @Override
     public void onLoad(String mixinPackage) {

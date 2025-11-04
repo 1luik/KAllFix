@@ -75,6 +75,8 @@ debug的唯一作用就是连接多线程而不是替代专用工具，火花的
 - -DKMT-ThreadpoolKeepAliveTime=[毫秒]多线程线程池停止不需要的线程的时间 | 1.0.3
 - 使用-DKAF-RemoveMixin:[类名]禁用指定的mixin，KMT也可以
 - -DKMT-ChunkGeneratorMode2Start=[true, false]相当于自动在开始的执行 /SetterWorldConfig world setM2 %%KMT-ChunkGeneratorMode2Start%%
+- -DKMT-ChunkGeneratorMode2MultiThreadingSize=[数量]相当于自动在开始的执行 /SetterWorldConfig world setM2 %%KMT-ChunkGeneratorMode2MultiThreadingSize%%
+- -DKAF-ChunkBreedingControlSize=[多少实体] 在区块实体大于指定数量不允许繁殖，无jvm参数或jvm参数非数组或空字符直接禁用，-DKAF-ChunkBreedingControlSizeEnable=[true, false]是内部检测结果缓存会被覆盖，按照我的世Huntersxy玩家的要求添加
 - -DKAF-ClientboundKeepAlivePacket_Max=[多少毫秒] 修改ClientboundKeepAlivePacket数据包的时间要求，默认15秒
   - ClientboundKeepAlivePacket包是需要小于30秒发送一次要不然就会被踢出服务器理由是连接超时
 - 通过-DKAF-ServerTimeout=[多少秒]设置服务器连接超时时间，不一定有用可以试试另一个方式

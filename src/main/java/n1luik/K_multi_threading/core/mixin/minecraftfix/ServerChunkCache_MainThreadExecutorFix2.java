@@ -25,6 +25,8 @@ import java.util.function.BooleanSupplier;
 public abstract class ServerChunkCache_MainThreadExecutorFix2 extends BlockableEventLoop<Runnable> implements IMainThreadExecutor {
     @Unique
     private static final boolean K_multi_threading$StartMode2 = Boolean.getBoolean("KMT-ChunkGeneratorMode2Start");
+    @Unique
+    private static final int K_multi_threading$MultiThreadingSize = Integer.getInteger("KMT-ChunkGeneratorMode2MultiThreadingSize", 0);
     protected ServerChunkCache_MainThreadExecutorFix2(String p_18686_) {
         super(p_18686_);
     }
@@ -42,7 +44,7 @@ public abstract class ServerChunkCache_MainThreadExecutorFix2 extends BlockableE
     @Setter
     private boolean m2 = K_multi_threading$StartMode2;
     @Unique
-    private int multiThreadingSize = 0;
+    private int multiThreadingSize = K_multi_threading$MultiThreadingSize;
 
     @Override
     public boolean isCall() {

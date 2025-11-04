@@ -63,6 +63,7 @@
     "unsafe.debug.packet.ServerGamePacketListenerImplDebug",
     "unsafe.fix.asynchronous.ClientboundCustomQueryPacketMixin",
     "unsafe.gtceu.MedicalConditionTrackerMixin",
+    "unsafe.path.ChunkBreedingControlSizeEnable.AnimalMixin",
     "unsafe.path.InjectDatapack.FileToIdConverterMixin",
     "unsafe.path.InjectDatapack.RegistryDataLoaderMixin",
     "unsafe.path.InjectDatapack.TagLoaderMixin",
