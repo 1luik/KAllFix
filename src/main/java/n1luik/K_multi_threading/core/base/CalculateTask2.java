@@ -10,6 +10,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.LockSupport;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -67,7 +68,7 @@ public class CalculateTask2 extends RecursiveTask<Object> {
             this.wait = wait;
         }
 
-        while (!stop) Unsafe.unsafe.park(false, 0L);
+        while (!stop) LockSupport.park();
         if (throwable != null && function != null)return function.apply(throwable);
         if (!stop) throw new RuntimeException("等待线程异常");
         return null;
@@ -256,7 +257,7 @@ public class CalculateTask2 extends RecursiveTask<Object> {
 
     protected void unWait(){
         if (wait != null && !(wait instanceof ForkJoinWorkerThread))
-            Unsafe.unsafe.unpark(wait);
+            LockSupport.unpark(wait);
     }
 
     @Override

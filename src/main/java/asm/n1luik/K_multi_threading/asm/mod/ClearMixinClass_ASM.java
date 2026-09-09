@@ -16,7 +16,8 @@ import java.util.Set;
 @Slf4j
 public class ClearMixinClass_ASM extends ITransformer2 {
     public final List<String> stringsList = new ArrayList<>(List.of(
-            "dev/ryanhcode/sable/mixin/plot/LevelChunkMixin"
+            "dev/ryanhcode/sable/mixin/plot/LevelChunkMixin",
+            "com.ishland.c2me.fixes.general.threading_issues.mixin.asynccatchers.MixinServerChunkManager".replace(".", "/")
     ));
 
 

@@ -25,7 +25,9 @@
 package n1luik.K_multi_threading.core.util;
 
 import lombok.val;
+import org.valkyrienskies.core.impl.shadow.R;
 
+import java.lang.invoke.LambdaConversionException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.AccessibleObject;
@@ -39,22 +41,36 @@ import java.util.function.Predicate;
 public class ReflectionUtil {
     public static <T, R> Function<T, R> field(Class<T> owner, Class<R> type, String... names) {
         Field field = getField(owner, type, f -> contains(names, f.getName()));
-        long l = Unsafe.unsafe.objectFieldOffset(field);
-        return (obj)-> {
-            Object object = Unsafe.unsafe.getObject(obj, l);
-            if (!type.isInstance(object)) {
-                throw new ClassCastException(type.getName());
-            }
-            return (R) object;
-        };
+        try {
+            return(Function<T, R>) Unsafe.metafactory(Function.class,
+                    Function.class.getDeclaredMethod("apply", Object.class),
+                    Unsafe.lookup.unreflectGetter(field)).dynamicInvoker().invoke();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+        //long l = Unsafe.unsafe.objectFieldOffset(field);
+        //return (obj)-> {
+        //    Object object = Unsafe.unsafe.getObject(obj, l);
+        //    if (!type.isInstance(object)) {
+        //        throw new ClassCastException(type.getName());
+        //    }
+        //    return (R) object;
+        //};
     }
 
     public static <T, S> BiConsumer<T, S> setter(Class<T> owner, Class<S> type, String... names) {
         Field field = getField(owner, type, f -> contains(names, f.getName()));
-        long l = Unsafe.unsafe.objectFieldOffset(field);
-        return (obj,set)-> {
-            Unsafe.unsafe.putObject(obj, l, set);
-        };
+        try {
+            return(BiConsumer<T, S>) Unsafe.metafactory(BiConsumer.class,
+                    BiConsumer.class.getDeclaredMethod("apply", Object.class, Object.class),
+                    Unsafe.lookup.unreflectSetter(field)).dynamicInvoker().invoke();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+//        long l = Unsafe.unsafe.objectFieldOffset(field);
+//        return (obj,set)-> {
+//            Unsafe.unsafe.putObject(obj, l, set);
+//        };
     }
 
     public static Field getField(Class<?> owner, Class<?> fieldType, Predicate<Field> predicate) {

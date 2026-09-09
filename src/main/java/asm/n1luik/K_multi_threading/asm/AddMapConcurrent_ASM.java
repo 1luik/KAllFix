@@ -127,6 +127,10 @@ public class AddMapConcurrent_ASM extends ITransformer2 {
                     new MethodInfo[]{
                             new MethodInfo("getCellItems", null, true, false)
                     }),
+            new AsmTarget("dev.ftb.mods.ftbquests.util.DeferredInventoryDetection", false, new String[]{"playerMap"},
+                    new MethodInfo[]{
+                            new MethodInfo(null, null, true, true)
+                    }),
             new AsmTarget("net.minecraft.world.entity.ai.village.poi.PoiManager", false),
             new AsmTarget("me.desht.pneumaticcraft.common.drone.DroneClaimManager", false),
             new AsmTarget("com.github.alexthe666.iceandfire.entity.util.MyrmexHive", false),
@@ -134,6 +138,7 @@ public class AddMapConcurrent_ASM extends ITransformer2 {
             new AsmTarget("com.github.alexthe666.alexsmobs.event.ServerEvents", false),
             new AsmTarget("com.teammoeg.caupona.CPCommonBootStrap", false),
             new AsmTarget("me.jellysquid.mods.lithium.mixin.collections.entity_by_type.TypeFilterableListMixin", false),
+            new AsmTarget("net.caffeinemc.mods.lithium.mixin.ai.poi.SectionStorageMixin", false),
             new AsmTarget("com.abdelaziz.canary.mixin.collections.entity_by_type.ClassInstanceMultiMapMixin", false),
             new AsmTarget("net.minecraft.world.level.levelgen.structure.StructureCheck", false),
             new AsmTarget("net.minecraft.world.level.block.ComposterBlock", false),

@@ -75,7 +75,7 @@ public class CompatibilityMode2ClientCompresPacketLoader {
     }
 
     protected void readMoreBlockUp() throws IOException, InstantiationException {
-        ClientboundSectionBlocksUpdatePacket packet = (ClientboundSectionBlocksUpdatePacket) Unsafe.unsafe.allocateInstance(ClientboundSectionBlocksUpdatePacket.class);
+        ClientboundSectionBlocksUpdatePacket packet = (ClientboundSectionBlocksUpdatePacket) Unsafe.allocateInstance(ClientboundSectionBlocksUpdatePacket.class);
         SectionPos sectionPos = SectionPos.of(pack.readLongLE());
         int len = pack.readIntLE();
         short[] positions = new short[len];

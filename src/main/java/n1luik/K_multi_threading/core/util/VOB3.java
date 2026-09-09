@@ -6,18 +6,18 @@ import lombok.Setter;
 @Setter
 @Getter
 public class VOB3<T1, T2, T3> {
-    public static final long t1_pos;
-    public static final long t2_pos;
-    public static final long t3_pos;
+    //public static final long t1_pos;
+    //public static final long t2_pos;
+    //public static final long t3_pos;
     static {
 
-        try {
-            t1_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t1"));
-            t2_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t2"));
-            t3_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t3"));
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
+        //try {
+        //    t1_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t1"));
+        //    t2_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t2"));
+        //    t3_pos = Unsafe.unsafe.objectFieldOffset(VOB3.class.getDeclaredField("t3"));
+        //} catch (NoSuchFieldException e) {
+        //    throw new RuntimeException(e);
+        //}
 
     }
     public volatile T1 t1;
@@ -25,27 +25,27 @@ public class VOB3<T1, T2, T3> {
     public volatile T3 t3;
 
     public T1 getT1_() {
-        return (T1) Unsafe.unsafe.getObjectVolatile(this, t1_pos);
+        return t1;//(T1) Unsafe.unsafe.getObjectVolatile(this, t1_pos);
     }
 
     public T2 getT2_() {
-          return (T2) Unsafe.unsafe.getObjectVolatile(this, t2_pos);
+          return t2;//(T2) Unsafe.unsafe.getObjectVolatile(this, t2_pos);
     }
 
     public T3 getT3_() {
-        return (T3) Unsafe.unsafe.getObjectVolatile(this, t3_pos);
+        return t3;//(T3) Unsafe.unsafe.getObjectVolatile(this, t3_pos);
     }
 
     public void setT1_(T1 v) {
-        Unsafe.unsafe.putObjectVolatile(this, t1_pos, v);
+        t1 = v;//Unsafe.unsafe.putObjectVolatile(this, t1_pos, v);
     }
 
     public void setT2_(T2 v) {
-        Unsafe.unsafe.putObjectVolatile(this, t2_pos, v);
+        t2 = v;//Unsafe.unsafe.putObjectVolatile(this, t2_pos, v);
     }
 
     public void setT3_(T3 v) {
-        Unsafe.unsafe.putObjectVolatile(this, t3_pos, v);
+        t3 = v;//Unsafe.unsafe.putObjectVolatile(this, t3_pos, v);
     }
 
 

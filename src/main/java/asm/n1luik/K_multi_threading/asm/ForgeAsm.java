@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 public class ForgeAsm extends AgentAPI {
@@ -195,6 +196,17 @@ public class ForgeAsm extends AgentAPI {
         iTransformers.add(new NotErrorSafeIndependenceAddSynchronized_Asm());
         iTransformers.add(new ClearMixinClass_ASM());
         iTransformers.add(new RedstoneTorchBlock_Asm());
+        iTransformers.add(new MappingTransformer(new MappingImpl(){
+            {
+                map.put("it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap".replace(".", "/"),
+                        "n1luik.K_multi_threading.core.util.concurrent.ConcurrentLong2ObjectOpenHashMap".replace(".", "/"));
+            }
+        }){
+            @Override
+            public @NotNull Set<String> targets() {
+                return Set.of("net.caffeinemc.mods.lithium.common.util.collections.ListeningLong2ObjectOpenHashMap");
+            }
+        });
         return iTransformers;
     }
 }

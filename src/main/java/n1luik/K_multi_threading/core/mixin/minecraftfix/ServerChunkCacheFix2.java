@@ -26,7 +26,7 @@ import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@Mixin(ServerChunkCache.class)
+@Mixin(value = ServerChunkCache.class, priority = 0)
 public abstract class ServerChunkCacheFix2 {
     @Shadow @Final
     Thread mainThread;

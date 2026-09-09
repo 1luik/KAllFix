@@ -15,18 +15,18 @@ import java.util.concurrent.locks.ReentrantLock;
 @Setter
 @Getter
 public final class VOB3_OOI_LockC<T1, T2> extends ReentrantLock {
-    public static final long t1_pos;
-    public static final long t2_pos;
-    public static final long t3_pos;
+    //public static final long t1_pos;
+    //public static final long t2_pos;
+    //public static final long t3_pos;
     static {
 
-        try {
-            t1_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t1"));
-            t2_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t2"));
-            t3_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t3"));
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
+        //try {
+        //    t1_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t1"));
+        //    t2_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t2"));
+        //    t3_pos = Unsafe.unsafe.objectFieldOffset(VOB3_OOI_LockC.class.getDeclaredField("t3"));
+        //} catch (NoSuchFieldException e) {
+        //    throw new RuntimeException(e);
+        //}
 
     }
     public volatile T1 t1;
@@ -36,27 +36,27 @@ public final class VOB3_OOI_LockC<T1, T2> extends ReentrantLock {
     //public final ReentrantLockLock lock = new ReentrantLockLock();
 
     public T1 getT1_() {
-        return (T1) Unsafe.unsafe.getObjectVolatile(this, t1_pos);
+        return t1;// (T1) Unsafe.unsafe.getObjectVolatile(this, t1_pos);
     }
 
     public T2 getT2_() {
-          return (T2) Unsafe.unsafe.getObjectVolatile(this, t2_pos);
+          return t2;// (T2) Unsafe.unsafe.getObjectVolatile(this, t2_pos);
     }
 
     public int getT3_() {
-        return Unsafe.unsafe.getIntVolatile(this, t3_pos);
+        return t3;// Unsafe.unsafe.getIntVolatile(this, t3_pos);
     }
 
     public void setT1_(T1 v) {
-        Unsafe.unsafe.putObjectVolatile(this, t1_pos, v);
+        t1 = v;//Unsafe.unsafe.putObjectVolatile(this, t1_pos, v);
     }
 
     public void setT2_(T2 v) {
-        Unsafe.unsafe.putObjectVolatile(this, t2_pos, v);
+        t2 = v;//Unsafe.unsafe.putObjectVolatile(this, t2_pos, v);
     }
 
     public void setT3_(int v) {
-        Unsafe.unsafe.putIntVolatile(this, t3_pos, v);
+        t3 = v;//Unsafe.unsafe.putIntVolatile(this, t3_pos, v);
     }
 
 

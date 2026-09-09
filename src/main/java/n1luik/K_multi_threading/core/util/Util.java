@@ -142,31 +142,31 @@ public class Util {
         };
     }
 
-    public static long getFieldMemoryPos(String className, String fieldName){
-        try {
-            return getFieldMemoryPos(Class.forName(className),fieldName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static long getFieldMemoryPos(ClassLoader loader,String className, String fieldName){
-        try {
-            return getFieldMemoryPos(loader.loadClass(className),fieldName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static long getFieldMemoryPos(Class<?> zlass, String fieldName){
-        try {
-            return Unsafe.unsafe.objectFieldOffset(zlass.getDeclaredField(fieldName));
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static final long CompletableFuture$result_id = getFieldMemoryPos("java.util.concurrent.CompletableFuture", "result");
+//    public static long getFieldMemoryPos(String className, String fieldName){
+//        try {
+//            return getFieldMemoryPos(Class.forName(className),fieldName);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public static long getFieldMemoryPos(ClassLoader loader,String className, String fieldName){
+//        try {
+//            return getFieldMemoryPos(loader.loadClass(className),fieldName);
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public static long getFieldMemoryPos(Class<?> zlass, String fieldName){
+//        try {
+//            return Unsafe.unsafe.objectFieldOffset(zlass.getDeclaredField(fieldName));
+//        } catch (NoSuchFieldException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public static final long CompletableFuture$result_id = getFieldMemoryPos("java.util.concurrent.CompletableFuture", "result");
 
     //public static <U> U CallCompletableFuture(CompletableFuture<U> future){
     //    Thread thread = Thread.currentThread();

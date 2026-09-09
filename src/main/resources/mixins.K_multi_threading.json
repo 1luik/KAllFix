@@ -74,6 +74,7 @@
     "minecraftfix.LegacyRandomSourceFix2",
     "minecraftfix.LevelChunkFix1",
     "minecraftfix.LevelChunkFix2",
+    "minecraftfix.LevelChunkFix3",
     "minecraftfix.LevelChunkTicksFix1",
     "minecraftfix.LevelFix1",
     "minecraftfix.PersistentEntitySectionManagerFix1",

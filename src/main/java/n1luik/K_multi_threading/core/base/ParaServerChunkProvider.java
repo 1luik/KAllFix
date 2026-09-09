@@ -147,7 +147,7 @@ public class ParaServerChunkProvider extends ServerChunkCache implements IWorldC
     static {
         for (Field declaredField : ParaServerChunkProvider.class.getDeclaredFields()) {
             if (!Modifier.isStatic(declaredField.getModifiers())) {
-                initId.put(declaredField.getName(), Unsafe.unsafe.objectFieldOffset(declaredField));
+                initId.put(declaredField.getName(), Unsafe.getFieldAddress(declaredField));
             }
 
         }
@@ -155,7 +155,7 @@ public class ParaServerChunkProvider extends ServerChunkCache implements IWorldC
 
     public static ParaServerChunkProvider toPara(ServerChunkCache chunkSource) {
         ParaServerChunkProvider clone;
-        try {
+        //try {
             if (chunkSource instanceof ParaServerChunkProvider) {
                 clone = (ParaServerChunkProvider) chunkSource;
             } else {
@@ -163,9 +163,9 @@ public class ParaServerChunkProvider extends ServerChunkCache implements IWorldC
                 //Unsafe.setfinal(ServerLevel.class.getDeclaredField("f_8547_"), chunkSource.level, clone);
             }
 
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        }
+        //} catch (InstantiationException e) {
+        //    throw new RuntimeException(e);
+        //}
         clone.UnsafeInit();
         return clone;
     }
@@ -196,41 +196,41 @@ public class ParaServerChunkProvider extends ServerChunkCache implements IWorldC
 
         int size = getStatusSize();
 
-        //Unsafe.unsafe.putObject(this, initId.getLong("chunkCache"), new FixNullConcurrentHashMap<ChunkCacheAddress, ChunkAccess>());
-        Unsafe.unsafe.putObject(this, initId.getLong("lock"), new Object());
-        Unsafe.unsafe.putObject(this, initId.getLong("lock2"), new Object());
-        Unsafe.unsafe.putObject(this, initId.getLong("lock3"), new Object());
-        //Unsafe.unsafe.putObject(this, initId.getLong("lock4"), new ReentrantLock());
-        //Unsafe.unsafe.putObject(this, initId.getLong("lock5"), new ReentrantLock());
-        Unsafe.unsafe.putObject(this, initId.getLong("tasksRunLock"), new Object());
-        Unsafe.unsafe.putObject(this, initId.getLong("tasksRunLock2"), new Object());
+        //Unsafe.setFinal(this, initId.getLong("chunkCache"), new FixNullConcurrentHashMap<ChunkCacheAddress, ChunkAccess>());
+        Unsafe.setFinal(initId.getLong("lock"), this, new Object());
+        Unsafe.setFinal(initId.getLong("lock2"), this, new Object());
+        Unsafe.setFinal(initId.getLong("lock3"), this, new Object());
+        Unsafe.setFinal(initId.getLong("tasksRunLock"), this, new Object());
+        Unsafe.setFinal(initId.getLong("tasksRunLock2"), this, new Object());
+        //Unsafe.setFinal(initId.getLong("lock4"), new ReentrantLock());
+        //Unsafe.setFinal(initId.getLong("lock5"), new ReentrantLock());
         isCallTick = false;
         //thisGenerator = false;
         isCallGeneratorTick = false;
         lightChunk = null;
-        Unsafe.unsafe.putObject(this, initId.getLong("tasks"), new CopyOnWriteArrayList<>());
-        Unsafe.unsafe.putObject(this, initId.getLong("tickTasks"), new CopyOnWriteArrayList<>());
-        Unsafe.unsafe.putObject(this, initId.getLong("generatorTasks"), new CopyOnWriteArrayList<>());
-        //Unsafe.unsafe.putObject(this, initId.getLong("locks"), new ArrayList<>(256));
-        Unsafe.unsafe.putObject(this, initId.getLong("threadBlacklist"), new ConcurrentHashMap<>());
-        Unsafe.unsafe.putObject(this, initId.getLong("waitList"), new ConcurrentHashMap<>());
-        //Unsafe.unsafe.putObject(this, initId.getLong("chunkTask"), new ConcurrentHashMap<>());
-        Unsafe.unsafe.putObject(this, initId.getLong("generatorThread1"), new CopyOnWriteArrayList<>());
-        //Unsafe.unsafe.putObject(this, initId.getLong("condition4"), lock4.newCondition());
-        //Unsafe.unsafe.putObject(this, initId.getLong("condition5"), lock5.newCondition());
+        Unsafe.setFinal( initId.getLong("tasks"), this, new CopyOnWriteArrayList<>());
+        Unsafe.setFinal(initId.getLong("tickTasks"), this, new CopyOnWriteArrayList<>());
+        Unsafe.setFinal(initId.getLong("generatorTasks"), this, new CopyOnWriteArrayList<>());
+        Unsafe.setFinal(initId.getLong("threadBlacklist"), this, new ConcurrentHashMap<>());
+        Unsafe.setFinal(initId.getLong("waitList"), this, new ConcurrentHashMap<>());
+        Unsafe.setFinal(initId.getLong("generatorThread1"), this, new CopyOnWriteArrayList<>());
+        //Unsafe.setFinal(initId.getLong("condition4"), lock4.newCondition());
+        //Unsafe.setFinal(initId.getLong("condition5"), lock5.newCondition());
+        //Unsafe.setFinal(initId.getLong("locks"), new ArrayList<>(256));
+        //Unsafe.setFinal(initId.getLong("chunkTask"), new ConcurrentHashMap<>());
         LockLong2ObjectAVLTreeMap[] x = new LockLong2ObjectAVLTreeMap[size];
         for (int i = 0; i < size; i++) {
             x[i] = new LockLong2ObjectAVLTreeMap<>();
         }
-        Unsafe.unsafe.putObject(this, initId.getLong("chunkCacheShards"), x);//new Long2ObjectOpenHashMap[size][SHARD_COUNT]);
-        Unsafe.unsafe.putObject(this, initId.getLong("lockGenLock"), new AtomicInteger(0));
-        Unsafe.unsafe.putObject(this, initId.getLong("lockGenLock2"), new AtomicInteger(0));
-        Unsafe.unsafe.putObject(this, initId.getLong("lockGenLock3"), new AtomicReference<>(null));
-        //Unsafe.unsafe.putObject(this, initId.getLong("lockGenKey"), new LongOpenHashSet());
-        Unsafe.unsafe.putObject(this, initId.getLong("locks"), new ArrayDeque<>(64));
-        Unsafe.unsafe.putObject(this, initId.getLong("lockGen"), new LockLong2ObjectAVLTreeMap<>());
-        Unsafe.unsafe.putObject(this, initId.getLong("managedBlockTest"), new ConcurrentLinkedQueue<>());
-        //Unsafe.unsafe.putObject(this, initId.getLong("ChunkGeneratorTest"), new AtomicInteger());
+        Unsafe.setFinal(initId.getLong("chunkCacheShards"), this, x);//new Long2ObjectOpenHashMap[size][SHARD_COUNT]);
+        Unsafe.setFinal(initId.getLong("lockGenLock"), this, new AtomicInteger(0));
+        Unsafe.setFinal(initId.getLong("lockGenLock2"), this, new AtomicInteger(0));
+        Unsafe.setFinal(initId.getLong("lockGenLock3"), this, new AtomicReference<>(null));
+        //Unsafe.setFinal(initId.getLong("lockGenKey"), this, new LongOpenHashSet());
+        Unsafe.setFinal(initId.getLong("locks"), this, new ArrayDeque<>(64));
+        Unsafe.setFinal(initId.getLong("lockGen"), this, new LockLong2ObjectAVLTreeMap<>());
+        Unsafe.setFinal(initId.getLong("managedBlockTest"), this, new ConcurrentLinkedQueue<>());
+        //Unsafe.setFinal(initId.getLong("ChunkGeneratorTest"), new AtomicInteger());
         chunkCleaner = MarkerManager.getMarker("ChunkCleaner");
         lockGenLock2Size = 0;
 
@@ -1144,7 +1144,7 @@ public class ParaServerChunkProvider extends ServerChunkCache implements IWorldC
             managedBlockTest.add(new OB2F<>(p18702, thread));
             lockGenLock2.set(0);
             while (!p18702.getAsBoolean()) {
-                Unsafe.unsafe.park(false, 500*1000000L);
+                LockSupport.parkNanos(500*1000000L);
                 //System.out.println("KMT$managedBlockTest5"+managedBlockThread1);
             }
             return 1;

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
+import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -46,7 +47,7 @@ public class TaskRun implements Executor {
                     }
                     isPark.lock();
                     if (!Tasks.isEmpty())continue;
-                    Unsafe.unsafe.park(false, 15000*1000000L);//15秒
+                    LockSupport.parkNanos(15000*1000000L);//15秒
                     isPark.unlock();
                     if (stop)break;
                 }
@@ -59,11 +60,11 @@ public class TaskRun implements Executor {
         synchronized (StateLock) {
             Tasks.add(command);
             if (isPark.isLocked()) {
-                Unsafe.unsafe.unpark(TaskRun);
+                LockSupport.unpark(TaskRun);
             }else if (isPark.tryLock()) {
                 isPark.unlock();
             }else {
-                Unsafe.unsafe.unpark(TaskRun);
+                LockSupport.unpark(TaskRun);
             }
         }
     }
@@ -74,6 +75,6 @@ public class TaskRun implements Executor {
 
     public void stop() {
         stop = true;
-        Unsafe.unsafe.unpark(TaskRun);
+        LockSupport.unpark(TaskRun);
     }
 }

@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
@@ -300,7 +301,7 @@ public class DebugLog {
                     useTime = l1;
                     runTime.getAndAdd(l1);
                     if (l1 < interval) {
-                        Unsafe.unsafe.park(false, interval - l1);
+                        LockSupport.parkNanos(interval - l1);
                     }else {
                         if (l1 > interval * 1.2) {
                             createNode2 = true;
@@ -310,7 +311,7 @@ public class DebugLog {
 
                 }else {
                     use = false;
-                    Unsafe.unsafe.park(false, 0);
+                    LockSupport.park();
                 }
             }
         }
@@ -319,7 +320,7 @@ public class DebugLog {
             pos = 0;
             offset = threadSize;
             runThis = true;
-            Unsafe.unsafe.unpark(this);
+            LockSupport.unpark(this);
         }
     }
     //public class ThreadNode extends Thread{

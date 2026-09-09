@@ -9,16 +9,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DebugVoidAsyncWait implements Runnable{
-    protected static final long err_pos;
-    protected static final long status_pos;
+    //protected static final long err_pos;
+    //protected static final long status_pos;
     static {
 
-        try {
-            err_pos = Unsafe.unsafe.objectFieldOffset(DebugVoidAsyncWait.class.getDeclaredField("err"));
-            status_pos = Unsafe.unsafe.objectFieldOffset(DebugVoidAsyncWait.class.getDeclaredField("status"));
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
+        //try {
+        //    err_pos = Unsafe.unsafe.objectFieldOffset(DebugVoidAsyncWait.class.getDeclaredField("err"));
+        //    status_pos = Unsafe.unsafe.objectFieldOffset(DebugVoidAsyncWait.class.getDeclaredField("status"));
+        //} catch (NoSuchFieldException e) {
+        //    throw new RuntimeException(e);
+        //}
 
     }
     public final Lock lock;
@@ -30,21 +30,21 @@ public class DebugVoidAsyncWait implements Runnable{
 
 
     public Throwable getError_() {
-        return (Throwable) Unsafe.unsafe.getObjectVolatile(this, err_pos);
+        return err;//(Throwable) Unsafe.unsafe.getObjectVolatile(this, err_pos);
     }
 
     public int getStatus() {
-        return Unsafe.unsafe.getIntVolatile(this, status_pos);
+        return status;//Unsafe.unsafe.getIntVolatile(this, status_pos);
     }
 
 
 
     public void setErr_(Throwable v) {
-        Unsafe.unsafe.putObjectVolatile(this, err_pos, v);
+        err = v;//Unsafe.unsafe.putObjectVolatile(this, err_pos, v);
     }
 
     protected void setStatus_(int v) {
-        Unsafe.unsafe.putIntVolatile(this, status_pos, v);
+        status = v; //Unsafe.unsafe.putIntVolatile(this, status_pos, v);
     }
 
 

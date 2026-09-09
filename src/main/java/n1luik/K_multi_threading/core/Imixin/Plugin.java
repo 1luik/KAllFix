@@ -38,7 +38,7 @@ public class Plugin implements IMixinConfigPlugin {
         return switch (mixinClassName) {
             case "n1luik.K_multi_threading.core.mixin.minecraftfix.ChunkMapFix2" -> UnsafeEnable.INSTANCE.SafeUnloadChunk;
             case "n1luik.K_multi_threading.core.mixin.impl.MinecraftServerImpl2" -> UnsafeEnable.INSTANCE.IndependencePlayer;
-            case "n1luik.K_multi_threading.core.mixin.minecraftfix.ServerChunkCacheFix2" -> (!(isModLoaded("harium") || isModLoaded("canary") || isModLoaded("radium") || isModLoaded("lithium"))) || Boolean.getBoolean("KMT-OpenVanillaServerChunkCache");
+            case "n1luik.K_multi_threading.core.mixin.minecraftfix.ServerChunkCacheFix2" -> (!(isModLoaded("harium") || isModLoaded("canary") || isModLoaded("radium") || isModLoaded("lithium"))) || Boolean.getBoolean("KMT-OpenVanillaServerChunkCache") || AsmApi.isModLoaded("sable");
             case "n1luik.K_multi_threading.core.mixin.minecraftfix.LegacyRandomSourceFix2" -> !isModLoaded("structureessentials");
             case "n1luik.K_multi_threading.core.mixin.minecraftfix.ServerWatchdogFix1" -> !isModLoaded("fullstackwatchdog");
             case "n1luik.K_multi_threading.neoforge.mixin.fix.sable.LevelChunkMixin" -> isModLoaded("sable");

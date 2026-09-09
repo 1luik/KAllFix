@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.locks.LockSupport;
 
 //如果sync是this任务交流线程其他添加会阻塞
 public class AbstractWaitImpl<T> implements WaitCall<T>, Iterable<Thread> {
@@ -18,7 +19,7 @@ public class AbstractWaitImpl<T> implements WaitCall<T>, Iterable<Thread> {
             if (disable)return;
             wait.add(Thread.currentThread());
         }
-        Unsafe.unsafe.park(false,0);
+        LockSupport.park();
     }
 
     public void unpark(){
@@ -31,7 +32,7 @@ public class AbstractWaitImpl<T> implements WaitCall<T>, Iterable<Thread> {
             }
 
             while (wait.size() > 0) {
-                Unsafe.unsafe.unpark(wait.remove(wait.size()-1));
+                LockSupport.unpark(wait.remove(wait.size()-1));
             }
 
 

@@ -80,8 +80,9 @@ public class ClientCompresPacketLoader {
         ));
     }
 
+
     protected void readMoreBlockUp() throws IOException, InstantiationException {
-        ClientboundSectionBlocksUpdatePacket packet = (ClientboundSectionBlocksUpdatePacket) Unsafe.unsafe.allocateInstance(ClientboundSectionBlocksUpdatePacket.class);
+        ClientboundSectionBlocksUpdatePacket packet = (ClientboundSectionBlocksUpdatePacket) Unsafe.allocateInstance(ClientboundSectionBlocksUpdatePacket.class);
         SectionPos sectionPos = SectionPos.of(in.readLong());
         int len = in.readInt();
         short[] positions = new short[len];

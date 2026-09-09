@@ -38,9 +38,9 @@ public class SafeIndependenceAddSynchronized_Asm extends ITransformer2 {
         if (ss2.startsWith("1.20") || ss2.startsWith("1.19")) {
             list2.add(new IndependenceAddSynchronized_Asm.ReadBuf(ForgeAsm.minecraft_map.mapMethod("net/minecraft/server/level/ChunkMap.playerLoadedChunk(Lnet/minecraft/server/level/ServerPlayer;Lorg/apache/commons/lang3/mutable/MutableObject;Lnet/minecraft/world/level/chunk/LevelChunk;)V"), null));
         }
-        if (!AsmApi.isModLoaded("sable")){
-            list2.add(new IndependenceAddSynchronized_Asm.ReadBuf(ForgeAsm.minecraft_map.mapMethod("net/minecraft/world/level/chunk/LevelChunk.setBlockState(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;"), null));
-        }
+        //if (!AsmApi.isModLoaded("sable")){
+        //    list2.add(new IndependenceAddSynchronized_Asm.ReadBuf(ForgeAsm.minecraft_map.mapMethod("net/minecraft/world/level/chunk/LevelChunk.setBlockState(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Z)Lnet/minecraft/world/level/block/state/BlockState;"), null));
+        //}
 
 
         File f = new File("config/K_multi_threading-安全-independence-sync-Method-list.txt");
